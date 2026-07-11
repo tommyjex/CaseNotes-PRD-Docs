@@ -1,0 +1,60 @@
+.gitignore
+  s_b414846f7d2494::t_47da082b909b88 1 gitai:{"mixed_line_ranges":[],"operations":[{"operation_id":"6a51db1b6278cf2ccf107235","tool_type":"agent","tool_id":"apply_patch","line_ranges":[{"Single":1}]}]}
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "dbd526704591fbb22507c7fc14d3da819ff146eb",
+  "prompts": {},
+  "sessions": {
+    "s_b414846f7d2494": {
+      "agent_id": {
+        "tool": "trae",
+        "id": "6a51d9936278cf2ccf10721f",
+        "model": "gpt-5.5__dev"
+      },
+      "human_author": "ByteDance <bytedance@MacBook-Pro.local>"
+    }
+  },
+  "attestation_metadata": {
+    ".gitignore": [
+      {
+        "hash": "s_b414846f7d2494::t_47da082b909b88",
+        "line_ranges": [
+          {
+            "Single": 1
+          }
+        ],
+        "mixed_line_ranges": [],
+        "operations": [
+          {
+            "operation_id": "6a51db1b6278cf2ccf107235",
+            "tool_type": "agent",
+            "tool_id": "apply_patch",
+            "line_ranges": [
+              {
+                "Single": 1
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "remote_transcripts": {
+    "s_b414846f7d2494": {
+      "tool": "trae",
+      "conversation_id": "6a51d9936278cf2ccf10721f",
+      "session_id": "6a51d9936278cf2ccf10721f",
+      "status": "remote_only",
+      "message": "Remote transcript resolution is not implemented yet for TRAE prompts."
+    },
+    "s_b414846f7d2494::t_47da082b909b88": {
+      "tool": "trae",
+      "conversation_id": "6a51d9936278cf2ccf10721f",
+      "session_id": "6a51d9936278cf2ccf10721f",
+      "status": "remote_only",
+      "message": "Remote transcript resolution is not implemented yet for TRAE prompts."
+    }
+  }
+}
