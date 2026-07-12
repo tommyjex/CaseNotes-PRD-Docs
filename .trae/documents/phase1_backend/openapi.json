@@ -1,0 +1,4552 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "CaseNotes Server",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/api/v1/auth/register": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Register",
+        "operationId": "register_api_v1_auth_register_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Login",
+        "operationId": "login_api_v1_auth_login_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/refresh": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Refresh",
+        "operationId": "refresh_api_v1_auth_refresh_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/logout": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Logout",
+        "operationId": "logout_api_v1_auth_logout_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LogoutRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/change-password": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Change Password",
+        "operationId": "change_password_api_v1_auth_change_password_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangePasswordRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/cases": {
+      "post": {
+        "tags": [
+          "cases"
+        ],
+        "summary": "Create Case",
+        "operationId": "create_case_api_v1_cases_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CaseCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CaseResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "cases"
+        ],
+        "summary": "List Cases",
+        "operationId": "list_cases_api_v1_cases_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Query"
+            }
+          },
+          {
+            "name": "tag",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Tag"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "active",
+                "archived",
+                "all"
+              ],
+              "type": "string",
+              "default": "active",
+              "title": "Status"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CaseResponse"
+                  },
+                  "title": "Response List Cases Api V1 Cases Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cases/{case_id}": {
+      "get": {
+        "tags": [
+          "cases"
+        ],
+        "summary": "Get Case",
+        "operationId": "get_case_api_v1_cases__case_id__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CaseResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "cases"
+        ],
+        "summary": "Update Case",
+        "operationId": "update_case_api_v1_cases__case_id__patch",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CaseUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CaseResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cases/{case_id}/archive": {
+      "post": {
+        "tags": [
+          "cases"
+        ],
+        "summary": "Archive Case",
+        "operationId": "archive_case_api_v1_cases__case_id__archive_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CaseResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cases/{case_id}/records": {
+      "post": {
+        "tags": [
+          "cases"
+        ],
+        "summary": "Create Record",
+        "operationId": "create_record_api_v1_cases__case_id__records_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecordCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecordResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cases/{case_id}/records/{record_id}": {
+      "get": {
+        "tags": [
+          "cases"
+        ],
+        "summary": "Get Record",
+        "operationId": "get_record_api_v1_cases__case_id__records__record_id__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          },
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Record Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecordResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "cases"
+        ],
+        "summary": "Update Record",
+        "operationId": "update_record_api_v1_cases__case_id__records__record_id__patch",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          },
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Record Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecordUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecordResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/records/{record_id}/ai-summaries": {
+      "post": {
+        "tags": [
+          "ai"
+        ],
+        "summary": "Create Ai Summary",
+        "operationId": "create_ai_summary_api_v1_records__record_id__ai_summaries_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Record Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SummaryCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SummaryResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/records/{record_id}/risk-signals": {
+      "post": {
+        "tags": [
+          "ai"
+        ],
+        "summary": "Create Risk Signal",
+        "operationId": "create_risk_signal_api_v1_records__record_id__risk_signals_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Record Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RiskCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RiskResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ai-summaries/{summary_id}": {
+      "get": {
+        "tags": [
+          "ai"
+        ],
+        "summary": "Get Ai Summary",
+        "operationId": "get_ai_summary_api_v1_ai_summaries__summary_id__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "summary_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Summary Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SummaryResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "ai"
+        ],
+        "summary": "Update Ai Summary",
+        "operationId": "update_ai_summary_api_v1_ai_summaries__summary_id__patch",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "summary_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Summary Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SummaryPatchRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SummaryResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ai-summaries/{summary_id}/confirm": {
+      "post": {
+        "tags": [
+          "ai"
+        ],
+        "summary": "Confirm Ai Summary",
+        "operationId": "confirm_ai_summary_api_v1_ai_summaries__summary_id__confirm_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "summary_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Summary Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SummaryResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/risk-signals/{risk_id}": {
+      "patch": {
+        "tags": [
+          "risks"
+        ],
+        "summary": "Update Risk Signal",
+        "operationId": "update_risk_signal_api_v1_risk_signals__risk_id__patch",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "risk_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Risk Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RiskPatchRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RiskResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/risk-signals/{risk_id}/confirm": {
+      "post": {
+        "tags": [
+          "risks"
+        ],
+        "summary": "Confirm Risk Signal",
+        "operationId": "confirm_risk_signal_api_v1_risk_signals__risk_id__confirm_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "risk_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Risk Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RiskActionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RiskResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/risk-signals/{risk_id}/dismiss": {
+      "post": {
+        "tags": [
+          "risks"
+        ],
+        "summary": "Dismiss Risk Signal",
+        "operationId": "dismiss_risk_signal_api_v1_risk_signals__risk_id__dismiss_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "risk_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Risk Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RiskActionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RiskResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/risk-signals/{risk_id}/reminders": {
+      "post": {
+        "tags": [
+          "risks"
+        ],
+        "summary": "Create Risk Reminder",
+        "operationId": "create_risk_reminder_api_v1_risk_signals__risk_id__reminders_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "risk_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Risk Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RiskReminderCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReminderResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cases/{case_id}/reports": {
+      "post": {
+        "tags": [
+          "reports"
+        ],
+        "summary": "Create Report",
+        "operationId": "create_report_api_v1_cases__case_id__reports_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReportCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/reports/{report_id}": {
+      "get": {
+        "tags": [
+          "reports"
+        ],
+        "summary": "Get Report",
+        "operationId": "get_report_api_v1_reports__report_id__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "report_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Report Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "reports"
+        ],
+        "summary": "Update Report",
+        "operationId": "update_report_api_v1_reports__report_id__patch",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "report_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Report Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReportPatchRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/reports/{report_id}/confirm": {
+      "post": {
+        "tags": [
+          "reports"
+        ],
+        "summary": "Confirm Report",
+        "operationId": "confirm_report_api_v1_reports__report_id__confirm_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "report_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Report Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/reports/{report_id}/copy-data": {
+      "get": {
+        "tags": [
+          "reports"
+        ],
+        "summary": "Get Report Copy Data",
+        "operationId": "get_report_copy_data_api_v1_reports__report_id__copy_data_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "report_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Report Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportCopyDataResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/reminders": {
+      "post": {
+        "tags": [
+          "reminders"
+        ],
+        "summary": "Create Reminder",
+        "operationId": "create_reminder_api_v1_reminders_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReminderCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReminderResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "reminders"
+        ],
+        "summary": "List Reminders",
+        "operationId": "list_reminders_api_v1_reminders_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "pending",
+                "done",
+                "all"
+              ],
+              "type": "string",
+              "default": "pending",
+              "title": "Status"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ReminderResponse"
+                  },
+                  "title": "Response List Reminders Api V1 Reminders Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/reminders/{reminder_id}/complete": {
+      "post": {
+        "tags": [
+          "reminders"
+        ],
+        "summary": "Complete Reminder",
+        "operationId": "complete_reminder_api_v1_reminders__reminder_id__complete_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "reminder_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Reminder Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReminderResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/me": {
+      "get": {
+        "tags": [
+          "me"
+        ],
+        "summary": "Me",
+        "operationId": "me_api_v1_me_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/cases/{case_id}/recordings": {
+      "post": {
+        "tags": [
+          "recordings"
+        ],
+        "summary": "Create Recording",
+        "operationId": "create_recording_api_v1_cases__case_id__recordings_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecordingCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecordingResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/recordings/{recording_id}": {
+      "get": {
+        "tags": [
+          "recordings"
+        ],
+        "summary": "Get Recording",
+        "operationId": "get_recording_api_v1_recordings__recording_id__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "recording_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Recording Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecordingResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/recordings/{recording_id}/upload-url": {
+      "post": {
+        "tags": [
+          "recordings"
+        ],
+        "summary": "Create Upload Url",
+        "operationId": "create_upload_url_api_v1_recordings__recording_id__upload_url_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "recording_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Recording Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UploadUrlRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadUrlResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/recordings/{recording_id}/complete-upload": {
+      "post": {
+        "tags": [
+          "recordings"
+        ],
+        "summary": "Complete Upload",
+        "operationId": "complete_upload_api_v1_recordings__recording_id__complete_upload_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "recording_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Recording Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompleteUploadRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecordingResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/recordings/{recording_id}/retry-upload": {
+      "post": {
+        "tags": [
+          "recordings"
+        ],
+        "summary": "Retry Upload",
+        "operationId": "retry_upload_api_v1_recordings__recording_id__retry_upload_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "recording_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Recording Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UploadUrlRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadUrlResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/recordings/{recording_id}/cancel": {
+      "post": {
+        "tags": [
+          "recordings"
+        ],
+        "summary": "Cancel Recording",
+        "operationId": "cancel_recording_api_v1_recordings__recording_id__cancel_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "recording_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Recording Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecordingResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/recordings/{recording_id}/transcriptions": {
+      "post": {
+        "tags": [
+          "recordings"
+        ],
+        "summary": "Create Transcription",
+        "operationId": "create_transcription_api_v1_recordings__recording_id__transcriptions_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "recording_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Recording Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TranscriptionCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TranscriptionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/transcriptions/{task_id}": {
+      "get": {
+        "tags": [
+          "transcriptions"
+        ],
+        "summary": "Get Transcription",
+        "operationId": "get_transcription_api_v1_transcriptions__task_id__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Task Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TranscriptionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "transcriptions"
+        ],
+        "summary": "Update Transcription",
+        "operationId": "update_transcription_api_v1_transcriptions__task_id__patch",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Task Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TranscriptionPatchRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TranscriptionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "transcriptions"
+        ],
+        "summary": "Delete Transcription",
+        "operationId": "delete_transcription_api_v1_transcriptions__task_id__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Task Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/transcriptions/{task_id}/retry": {
+      "post": {
+        "tags": [
+          "transcriptions"
+        ],
+        "summary": "Retry Transcription",
+        "operationId": "retry_transcription_api_v1_transcriptions__task_id__retry_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Task Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TranscriptionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/health": {
+      "get": {
+        "tags": [
+          "system"
+        ],
+        "summary": "Health",
+        "operationId": "health_api_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/health/db": {
+      "get": {
+        "tags": [
+          "system"
+        ],
+        "summary": "Database Health",
+        "operationId": "database_health_api_v1_health_db_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatabaseHealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CaseCreateRequest": {
+        "properties": {
+          "nickname_or_code": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Nickname Or Code"
+          },
+          "gender": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 50
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gender"
+          },
+          "age_group": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 50
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Age Group"
+          },
+          "presenting_complaint": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Presenting Complaint"
+          },
+          "tags": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Tags"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "nickname_or_code"
+        ],
+        "title": "CaseCreateRequest"
+      },
+      "CaseResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "owner_user_id": {
+            "type": "string",
+            "title": "Owner User Id"
+          },
+          "nickname_or_code": {
+            "type": "string",
+            "title": "Nickname Or Code"
+          },
+          "gender": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gender"
+          },
+          "age_group": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Age Group"
+          },
+          "presenting_complaint": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Presenting Complaint"
+          },
+          "tags": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Tags"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "last_session_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Session At"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "owner_user_id",
+          "nickname_or_code",
+          "gender",
+          "age_group",
+          "presenting_complaint",
+          "tags",
+          "notes",
+          "status",
+          "last_session_at",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "CaseResponse"
+      },
+      "CaseUpdateRequest": {
+        "properties": {
+          "nickname_or_code": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 100,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nickname Or Code"
+          },
+          "gender": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 50
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gender"
+          },
+          "age_group": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 50
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Age Group"
+          },
+          "presenting_complaint": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Presenting Complaint"
+          },
+          "tags": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tags"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "active",
+                  "archived"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "title": "CaseUpdateRequest"
+      },
+      "ChangePasswordRequest": {
+        "properties": {
+          "current_password": {
+            "type": "string",
+            "maxLength": 256,
+            "minLength": 1,
+            "title": "Current Password"
+          },
+          "new_password": {
+            "type": "string",
+            "maxLength": 256,
+            "minLength": 8,
+            "title": "New Password"
+          }
+        },
+        "type": "object",
+        "required": [
+          "current_password",
+          "new_password"
+        ],
+        "title": "ChangePasswordRequest"
+      },
+      "CompleteUploadRequest": {
+        "properties": {
+          "upload_token": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Upload Token"
+          },
+          "original_filename": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 255,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Original Filename"
+          },
+          "mime_type": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 100,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mime Type"
+          },
+          "file_size_bytes": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "File Size Bytes"
+          },
+          "duration_seconds": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration Seconds"
+          },
+          "checksum": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 128
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Checksum"
+          },
+          "simulate_success": {
+            "type": "boolean",
+            "title": "Simulate Success",
+            "default": true
+          }
+        },
+        "type": "object",
+        "required": [
+          "upload_token"
+        ],
+        "title": "CompleteUploadRequest"
+      },
+      "DatabaseHealthResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "DatabaseHealthResponse"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HealthResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "app_name": {
+            "type": "string",
+            "title": "App Name"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "app_name",
+          "version"
+        ],
+        "title": "HealthResponse"
+      },
+      "LoginRequest": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 3,
+            "title": "Email"
+          },
+          "password": {
+            "type": "string",
+            "maxLength": 256,
+            "minLength": 1,
+            "title": "Password"
+          }
+        },
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "title": "LoginRequest"
+      },
+      "LogoutRequest": {
+        "properties": {
+          "refresh_token": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Refresh Token"
+          }
+        },
+        "type": "object",
+        "required": [
+          "refresh_token"
+        ],
+        "title": "LogoutRequest"
+      },
+      "MeResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "email": {
+            "type": "string",
+            "title": "Email"
+          },
+          "full_name": {
+            "type": "string",
+            "title": "Full Name"
+          },
+          "organization_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Organization Name"
+          },
+          "practitioner_role": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Practitioner Role"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "email",
+          "full_name",
+          "organization_name",
+          "practitioner_role"
+        ],
+        "title": "MeResponse"
+      },
+      "RecordCreateRequest": {
+        "properties": {
+          "session_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Session Date"
+          },
+          "duration_minutes": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 1440.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration Minutes"
+          },
+          "modality": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 50
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Modality"
+          },
+          "raw_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Raw Text"
+          },
+          "transcription_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Transcription Text"
+          },
+          "main_complaint_change": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Main Complaint Change"
+          },
+          "emotion_state": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Emotion State"
+          },
+          "intervention": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Intervention"
+          },
+          "goal": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Goal"
+          },
+          "next_plan": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Plan"
+          },
+          "tags": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Tags"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "submitted"
+            ],
+            "title": "Status",
+            "default": "draft"
+          }
+        },
+        "type": "object",
+        "title": "RecordCreateRequest"
+      },
+      "RecordResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "case_id": {
+            "type": "string",
+            "title": "Case Id"
+          },
+          "owner_user_id": {
+            "type": "string",
+            "title": "Owner User Id"
+          },
+          "session_date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Session Date"
+          },
+          "duration_minutes": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration Minutes"
+          },
+          "modality": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Modality"
+          },
+          "raw_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Raw Text"
+          },
+          "transcription_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Transcription Text"
+          },
+          "main_complaint_change": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Main Complaint Change"
+          },
+          "emotion_state": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Emotion State"
+          },
+          "intervention": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Intervention"
+          },
+          "goal": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Goal"
+          },
+          "next_plan": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Plan"
+          },
+          "tags": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Tags"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "has_ai_input": {
+            "type": "boolean",
+            "title": "Has Ai Input",
+            "readOnly": true
+          },
+          "ai_ready": {
+            "type": "boolean",
+            "title": "Ai Ready",
+            "readOnly": true
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "case_id",
+          "owner_user_id",
+          "session_date",
+          "duration_minutes",
+          "modality",
+          "raw_text",
+          "transcription_text",
+          "main_complaint_change",
+          "emotion_state",
+          "intervention",
+          "goal",
+          "next_plan",
+          "tags",
+          "status",
+          "created_at",
+          "updated_at",
+          "has_ai_input",
+          "ai_ready"
+        ],
+        "title": "RecordResponse"
+      },
+      "RecordUpdateRequest": {
+        "properties": {
+          "session_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Session Date"
+          },
+          "duration_minutes": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 1440.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration Minutes"
+          },
+          "modality": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 50
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Modality"
+          },
+          "raw_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Raw Text"
+          },
+          "transcription_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Transcription Text"
+          },
+          "main_complaint_change": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Main Complaint Change"
+          },
+          "emotion_state": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Emotion State"
+          },
+          "intervention": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Intervention"
+          },
+          "goal": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Goal"
+          },
+          "next_plan": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Plan"
+          },
+          "tags": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tags"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "draft",
+                  "submitted"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "title": "RecordUpdateRequest"
+      },
+      "RecordingCreateRequest": {
+        "properties": {
+          "record_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Record Id"
+          },
+          "local_recording_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 100
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Local Recording Id"
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "app_recording",
+              "uploaded_file"
+            ],
+            "title": "Source"
+          },
+          "consent_confirmed": {
+            "type": "boolean",
+            "title": "Consent Confirmed",
+            "default": false
+          },
+          "original_filename": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 1,
+            "title": "Original Filename"
+          },
+          "mime_type": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Mime Type"
+          },
+          "file_size_bytes": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "File Size Bytes"
+          },
+          "duration_seconds": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration Seconds"
+          },
+          "checksum": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 128
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Checksum"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source",
+          "original_filename",
+          "mime_type"
+        ],
+        "title": "RecordingCreateRequest"
+      },
+      "RecordingResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "owner_user_id": {
+            "type": "string",
+            "title": "Owner User Id"
+          },
+          "case_id": {
+            "type": "string",
+            "title": "Case Id"
+          },
+          "record_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Record Id"
+          },
+          "local_recording_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Local Recording Id"
+          },
+          "source": {
+            "type": "string",
+            "title": "Source"
+          },
+          "consent_confirmed": {
+            "type": "boolean",
+            "title": "Consent Confirmed"
+          },
+          "original_filename": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Original Filename"
+          },
+          "mime_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mime Type"
+          },
+          "file_size_bytes": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "File Size Bytes"
+          },
+          "duration_seconds": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration Seconds"
+          },
+          "checksum": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Checksum"
+          },
+          "upload_status": {
+            "type": "string",
+            "title": "Upload Status"
+          },
+          "upload_token": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Upload Token"
+          },
+          "upload_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Upload Url"
+          },
+          "failure_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Failure Reason"
+          },
+          "retryable": {
+            "type": "boolean",
+            "title": "Retryable"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "owner_user_id",
+          "case_id",
+          "record_id",
+          "local_recording_id",
+          "source",
+          "consent_confirmed",
+          "original_filename",
+          "mime_type",
+          "file_size_bytes",
+          "duration_seconds",
+          "checksum",
+          "upload_status",
+          "upload_token",
+          "upload_url",
+          "failure_reason",
+          "retryable",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "RecordingResponse"
+      },
+      "RefreshRequest": {
+        "properties": {
+          "refresh_token": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Refresh Token"
+          }
+        },
+        "type": "object",
+        "required": [
+          "refresh_token"
+        ],
+        "title": "RefreshRequest"
+      },
+      "RegisterRequest": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 3,
+            "title": "Email"
+          },
+          "password": {
+            "type": "string",
+            "maxLength": 256,
+            "minLength": 8,
+            "title": "Password"
+          },
+          "full_name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Full Name"
+          },
+          "organization_name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 150
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Organization Name"
+          },
+          "practitioner_role": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 100
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Practitioner Role"
+          }
+        },
+        "type": "object",
+        "required": [
+          "email",
+          "password",
+          "full_name"
+        ],
+        "title": "RegisterRequest"
+      },
+      "ReminderCreateRequest": {
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "title": "Case Id"
+          },
+          "source_type": {
+            "type": "string",
+            "enum": [
+              "manual",
+              "ai_suggestion",
+              "risk_signal"
+            ],
+            "title": "Source Type",
+            "default": "manual"
+          },
+          "source_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Id"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Title"
+          },
+          "remind_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Remind At"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          }
+        },
+        "type": "object",
+        "required": [
+          "case_id",
+          "title",
+          "remind_at"
+        ],
+        "title": "ReminderCreateRequest"
+      },
+      "ReminderResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "owner_user_id": {
+            "type": "string",
+            "title": "Owner User Id"
+          },
+          "case_id": {
+            "type": "string",
+            "title": "Case Id"
+          },
+          "source_type": {
+            "type": "string",
+            "title": "Source Type"
+          },
+          "source_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "remind_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Remind At"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "completed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Completed At"
+          },
+          "is_overdue": {
+            "type": "boolean",
+            "title": "Is Overdue",
+            "readOnly": true
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "owner_user_id",
+          "case_id",
+          "source_type",
+          "source_id",
+          "title",
+          "remind_at",
+          "note",
+          "status",
+          "created_at",
+          "completed_at",
+          "is_overdue"
+        ],
+        "title": "ReminderResponse"
+      },
+      "ReportCopyDataResponse": {
+        "properties": {
+          "report_id": {
+            "type": "string",
+            "title": "Report Id"
+          },
+          "plain_text": {
+            "type": "string",
+            "title": "Plain Text"
+          },
+          "content_json": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Content Json"
+          },
+          "source_record_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Source Record Ids"
+          },
+          "disclaimer": {
+            "type": "string",
+            "title": "Disclaimer"
+          }
+        },
+        "type": "object",
+        "required": [
+          "report_id",
+          "plain_text",
+          "content_json",
+          "source_record_ids",
+          "disclaimer"
+        ],
+        "title": "ReportCopyDataResponse"
+      },
+      "ReportCreateRequest": {
+        "properties": {
+          "range_type": {
+            "type": "string",
+            "enum": [
+              "latest",
+              "recent_n",
+              "date_range"
+            ],
+            "title": "Range Type",
+            "default": "latest"
+          },
+          "recent_count": {
+            "type": "integer",
+            "maximum": 50.0,
+            "minimum": 1.0,
+            "title": "Recent Count",
+            "default": 1
+          },
+          "start_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Start At"
+          },
+          "end_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End At"
+          }
+        },
+        "type": "object",
+        "title": "ReportCreateRequest"
+      },
+      "ReportPatchRequest": {
+        "properties": {
+          "status": {
+            "anyOf": [
+              {
+                "type": "string",
+                "const": "editing"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "content_json": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Content Json"
+          }
+        },
+        "type": "object",
+        "title": "ReportPatchRequest"
+      },
+      "ReportResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "owner_user_id": {
+            "type": "string",
+            "title": "Owner User Id"
+          },
+          "case_id": {
+            "type": "string",
+            "title": "Case Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "range_type": {
+            "type": "string",
+            "title": "Range Type"
+          },
+          "content_json": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Content Json"
+          },
+          "source_record_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Source Record Ids"
+          },
+          "disclaimer": {
+            "type": "string",
+            "title": "Disclaimer"
+          },
+          "confirmed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confirmed At"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "owner_user_id",
+          "case_id",
+          "status",
+          "range_type",
+          "content_json",
+          "source_record_ids",
+          "disclaimer",
+          "confirmed_at",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "ReportResponse"
+      },
+      "RiskActionRequest": {
+        "properties": {
+          "handled_note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Handled Note"
+          }
+        },
+        "type": "object",
+        "title": "RiskActionRequest"
+      },
+      "RiskCreateRequest": {
+        "properties": {},
+        "type": "object",
+        "title": "RiskCreateRequest"
+      },
+      "RiskPatchRequest": {
+        "properties": {
+          "level": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "none",
+                  "low",
+                  "medium",
+                  "high",
+                  "urgent"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Level"
+          },
+          "category": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "self_harm",
+                  "suicide",
+                  "violence",
+                  "abuse",
+                  "emotional_crisis",
+                  "other"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Category"
+          },
+          "evidence_excerpt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Evidence Excerpt"
+          },
+          "suggested_actions": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Suggested Actions"
+          },
+          "handled_note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Handled Note"
+          }
+        },
+        "type": "object",
+        "title": "RiskPatchRequest"
+      },
+      "RiskReminderCreateRequest": {
+        "properties": {
+          "title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "remind_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Remind At"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          }
+        },
+        "type": "object",
+        "required": [
+          "remind_at"
+        ],
+        "title": "RiskReminderCreateRequest"
+      },
+      "RiskResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "owner_user_id": {
+            "type": "string",
+            "title": "Owner User Id"
+          },
+          "case_id": {
+            "type": "string",
+            "title": "Case Id"
+          },
+          "record_id": {
+            "type": "string",
+            "title": "Record Id"
+          },
+          "level": {
+            "type": "string",
+            "title": "Level"
+          },
+          "category": {
+            "type": "string",
+            "title": "Category"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "evidence_excerpt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Evidence Excerpt"
+          },
+          "suggested_actions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Suggested Actions"
+          },
+          "disclaimer": {
+            "type": "string",
+            "title": "Disclaimer"
+          },
+          "handled_note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Handled Note"
+          },
+          "confirmed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confirmed At"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "owner_user_id",
+          "case_id",
+          "record_id",
+          "level",
+          "category",
+          "status",
+          "evidence_excerpt",
+          "suggested_actions",
+          "disclaimer",
+          "handled_note",
+          "confirmed_at",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "RiskResponse"
+      },
+      "SummaryCreateRequest": {
+        "properties": {
+          "template": {
+            "type": "string",
+            "const": "SOAP",
+            "title": "Template",
+            "default": "SOAP"
+          }
+        },
+        "type": "object",
+        "title": "SummaryCreateRequest"
+      },
+      "SummaryPatchRequest": {
+        "properties": {
+          "status": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "pending_review",
+                  "confirmed",
+                  "rejected"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "summary_json": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Summary Json"
+          }
+        },
+        "type": "object",
+        "title": "SummaryPatchRequest"
+      },
+      "SummaryResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "owner_user_id": {
+            "type": "string",
+            "title": "Owner User Id"
+          },
+          "case_id": {
+            "type": "string",
+            "title": "Case Id"
+          },
+          "record_id": {
+            "type": "string",
+            "title": "Record Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "template": {
+            "type": "string",
+            "title": "Template"
+          },
+          "summary_json": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Summary Json"
+          },
+          "model_name": {
+            "type": "string",
+            "title": "Model Name"
+          },
+          "prompt_version": {
+            "type": "string",
+            "title": "Prompt Version"
+          },
+          "schema_version": {
+            "type": "string",
+            "title": "Schema Version"
+          },
+          "input_snapshot_hash": {
+            "type": "string",
+            "title": "Input Snapshot Hash"
+          },
+          "generated_by_ai": {
+            "type": "boolean",
+            "title": "Generated By Ai"
+          },
+          "disclaimer": {
+            "type": "string",
+            "title": "Disclaimer"
+          },
+          "confirmed_by": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confirmed By"
+          },
+          "confirmed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confirmed At"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "owner_user_id",
+          "case_id",
+          "record_id",
+          "status",
+          "template",
+          "summary_json",
+          "model_name",
+          "prompt_version",
+          "schema_version",
+          "input_snapshot_hash",
+          "generated_by_ai",
+          "disclaimer",
+          "confirmed_by",
+          "confirmed_at",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "SummaryResponse"
+      },
+      "TokenResponse": {
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "title": "Access Token"
+          },
+          "refresh_token": {
+            "type": "string",
+            "title": "Refresh Token"
+          },
+          "token_type": {
+            "type": "string",
+            "title": "Token Type"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Expires At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "access_token",
+          "refresh_token",
+          "token_type",
+          "expires_at"
+        ],
+        "title": "TokenResponse"
+      },
+      "TranscriptionCreateRequest": {
+        "properties": {
+          "provider": {
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 1,
+            "title": "Provider",
+            "default": "mock-local"
+          }
+        },
+        "type": "object",
+        "title": "TranscriptionCreateRequest"
+      },
+      "TranscriptionPatchRequest": {
+        "properties": {
+          "status": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "queued",
+                  "processing",
+                  "succeeded",
+                  "failed",
+                  "cancelled"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "provider_job_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 128
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Provider Job Id"
+          },
+          "transcript_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Transcript Text"
+          },
+          "failure_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Failure Reason"
+          },
+          "retryable": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Retryable"
+          }
+        },
+        "type": "object",
+        "title": "TranscriptionPatchRequest"
+      },
+      "TranscriptionResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "recording_id": {
+            "type": "string",
+            "title": "Recording Id"
+          },
+          "owner_user_id": {
+            "type": "string",
+            "title": "Owner User Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "provider": {
+            "type": "string",
+            "title": "Provider"
+          },
+          "provider_job_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Provider Job Id"
+          },
+          "transcript_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Transcript Text"
+          },
+          "failure_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Failure Reason"
+          },
+          "retryable": {
+            "type": "boolean",
+            "title": "Retryable"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "completed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Completed At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "recording_id",
+          "owner_user_id",
+          "status",
+          "provider",
+          "provider_job_id",
+          "transcript_text",
+          "failure_reason",
+          "retryable",
+          "created_at",
+          "updated_at",
+          "completed_at"
+        ],
+        "title": "TranscriptionResponse"
+      },
+      "UploadUrlRequest": {
+        "properties": {
+          "expires_in_seconds": {
+            "type": "integer",
+            "maximum": 3600.0,
+            "minimum": 60.0,
+            "title": "Expires In Seconds",
+            "default": 900
+          }
+        },
+        "type": "object",
+        "title": "UploadUrlRequest"
+      },
+      "UploadUrlResponse": {
+        "properties": {
+          "upload_url": {
+            "type": "string",
+            "title": "Upload Url"
+          },
+          "upload_token": {
+            "type": "string",
+            "title": "Upload Token"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Expires At"
+          },
+          "method": {
+            "type": "string",
+            "title": "Method",
+            "default": "PUT"
+          },
+          "headers": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Headers"
+          },
+          "fields": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Fields"
+          }
+        },
+        "type": "object",
+        "required": [
+          "upload_url",
+          "upload_token",
+          "expires_at",
+          "headers",
+          "fields"
+        ],
+        "title": "UploadUrlResponse"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    },
+    "securitySchemes": {
+      "HTTPBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}
